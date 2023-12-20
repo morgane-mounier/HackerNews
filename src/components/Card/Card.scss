@@ -1,0 +1,45 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  //gap: 0.8rem;
+}
+
+.card {
+  padding: 1rem;
+
+  &:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &_link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  &_author {
+    margin: 3px 0 0;
+    font-size: 1rem;
+    color: gray;
+    text-transform: capitalize;
+  }
+  &_title {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  &_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-block-end: 0;
+  }
+  &_tag {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    background-color: gray;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+}

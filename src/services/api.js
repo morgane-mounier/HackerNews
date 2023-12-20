@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "http://hn.algolia.com/api/v1/search";
+const BASE_URL = "https://hn.algolia.com/api/v1/search";
 
-// initier le paramètre query à vide de base
-export const fetchDatas = async (query = "", page = 1) => {
+export const fetchDatas = async (query, page) => {
   try {
-    const apiCall = await axios.get(`${BASE_URL}?query=${query}?page=${page}`);
-    console.log("fetchDatas", apiCall.data.hits);
-    return apiCall.data.hits;
+    const apiCall = await axios.get(`${BASE_URL}?query=${query}&page=${page}`);
+    console.log("fetchDatas", apiCall.data);
+
+    return apiCall.data;
   } catch (err) {
     console.log(err);
   }

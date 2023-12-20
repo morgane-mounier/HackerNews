@@ -10,10 +10,11 @@ function App() {
   let dispatch = useDispatch()
 
 
-  const {news, status} = useSelector(state => state.news)
+  const {news, status, nbPages} = useSelector(state => state.news)
+
 
   useEffect(() => {
-    dispatch(newsDataAsync())
+    dispatch(newsDataAsync({ page: 0 }))
   },[dispatch])
 
 
@@ -21,7 +22,7 @@ function App() {
   if(status === 'failed') return <>Erreur: {status.error}</>
 
 
-  //console.log('nbr d’article',news.length)
+  console.log('nbr de page', nbPages)
 
   return (
     <>
@@ -37,7 +38,7 @@ function App() {
               url={article.story_url || article.url}/>
         )
       })}
-      <Pagination />
+      <Pagination nbPages={nbPages} />
         
       </div>
   </>)

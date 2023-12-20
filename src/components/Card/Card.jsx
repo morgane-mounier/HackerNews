@@ -1,5 +1,6 @@
+import './Card.scss';
+
 import PropTypes from 'prop-types';
-import './Card.scss'
 
 const Card = ({url, author, title, tags}) => {
     if(!url) return null
@@ -21,7 +22,7 @@ const Card = ({url, author, title, tags}) => {
 Card.propTypes = {
     url: PropTypes.string,
     author: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 

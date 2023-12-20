@@ -1,6 +1,6 @@
-import './Search.scss'
-import { newsDataAsync } from '../../store/slices/newsSlice'
-import { useDispatch } from 'react-redux'
+import './Search.scss';
+import { newsDataAsync } from '../../store/slices/newsSlice';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 const Search = () => {
@@ -12,7 +12,7 @@ const Search = () => {
         e.preventDefault()
         const mySearch = e.target.elements.search.value
         console.log('mySearch', mySearch)
-        dispatch(newsDataAsync(mySearch))
+        dispatch(newsDataAsync({query: mySearch, page: 0}))
         setInput("");
     }
 

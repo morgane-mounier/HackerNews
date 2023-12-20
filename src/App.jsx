@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Card from './components/Card/Card'
 import Search from './components/Search/Search'
 import Pagination from './components/Pagination/Pagination'
+import Loading from './components/Loading/Loading'
 
 function App() {
   let dispatch = useDispatch()
@@ -18,11 +19,11 @@ function App() {
   },[dispatch])
 
 
-  if(status === 'loading') return <>Loading ...</>
+  if(status === 'loading') return <Loading/>
   if(status === 'failed') return <>Erreur: {status.error}</>
 
 
-  console.log('nbr de page', nbPages)
+  //console.log('nbr de page', nbPages)
 
   return (
     <>

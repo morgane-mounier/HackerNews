@@ -6,8 +6,8 @@ export const newsDataAsync = createAsyncThunk(
   "data/news",
 
   // initier le paramètre query à vide de base
-  async ({ query = "", page = 0 }) => {
-    const data = await fetchDatas(query, page);
+  async ({ query = "", page = 0, tags = "" }) => {
+    const data = await fetchDatas(query, page, tags);
     return data;
   }
 );

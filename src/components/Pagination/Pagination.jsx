@@ -12,18 +12,19 @@ const Pagination = ({nbPages}) => {
 
   const handleChangePage = (currentPage) => {
     setPage(currentPage);
-    console.log(currentPage)
+    console.log('currentPage', currentPage)
 
     dispatch(newsDataAsync({ query: "", page: currentPage }))
   }
 
-  const handleClickNext =()=> {
-    console.log('je clique sur suivant')
-  }
+  const handleChangeSelect = (e) => {
+    const selectedPage = parseInt(e.target.value, 10);
 
+    //console.log('selectedPage', selectedPage)
+    dispatch(newsDataAsync({ query: "", page: selectedPage }))
+  }  
   
-  
-  console.log ('previewPages',nbPages)
+  //console.log ('previewPages',nbPages)
 
   // boucle sur le nombre de page pour afficher les items
   const paginationItems = [];
@@ -35,13 +36,27 @@ const Pagination = ({nbPages}) => {
     );
   }
 
+  const optionItems = [];
+  for (let index = 6; index <= nbPages ; index++) {
+    optionItems.push(
+      <option key={index} value={index}>
+        page {index}
+      </option>
+    );
+  }
+
   return <>
     <ul className="pagination">
       {paginationItems}
       {nbPages > 6 && 
-        <li >
-          <button onClick={handleClickNext}>Pages Suivantes</button>
-        </li>
+
+        <form action="">
+          <label htmlFor="pages">Allez à la </label>
+          <select name="pages" id="pages"  onChange={handleChangeSelect}>
+            {optionItems}
+          </select>
+        </form>
+        
       }
     </ul>
   </>;

@@ -1,4 +1,14 @@
 .search {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
   margin-bottom: 1.6rem;
   text-align: center;
+
+  &_input {
+    padding: 0.5rem;
+    min-width: 20rem;
+    border: 1px solid gray;
+    border-radius: 4px;
+  }
 }

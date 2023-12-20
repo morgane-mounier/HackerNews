@@ -1,8 +1,23 @@
 import './Card.scss';
 
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { newsDataAsync } from '../../store/slices/newsSlice';
 
 const Card = ({url, author, title, tags}) => {
+
+    const dispatch = useDispatch();
+    const [selectTag, selectedTag] = useState('');
+
+    const handleOnClickTag = (tag) => {
+        selectedTag(tag)
+        //console.log(tag)
+
+        dispatch(newsDataAsync({tags: tag}))
+    }
+
+
     if(!url) return null
 
     return (
@@ -13,7 +28,9 @@ const Card = ({url, author, title, tags}) => {
                 
             </a>
             <p className='card_tags'>{tags.map((tag, index) => {return (
-                    <span key={index}  className="card_tag">{tag}</span>
+                <button  className="card_tag" key={index} onClick={() => handleOnClickTag(tag)}>
+                    {tag}
+                </button>
                 )})}</p>
         </div>
     )

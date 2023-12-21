@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { newsDataAsync } from '../../store/slices/newsSlice';
+import { Link } from 'react-router-dom';
 
 const Card = ({url, author, title, tags}) => {
 
@@ -17,16 +18,13 @@ const Card = ({url, author, title, tags}) => {
         dispatch(newsDataAsync({tags: tag}))
     }
 
-
-    if(!url) return null
-
     return (
         <div className='card'>
-            <a className='card_link' href={url} target='_blank' rel="noreferrer">
+            <Link className='card_link' to={url || '/error'} target={url ? '_blank' : '_self'} rel="noreferrer">
                 <p className='card_author'>{author}</p>
                 <p className='card_title'>{title}</p>
                 
-            </a>
+            </Link>
             <p className='card_tags'>{tags.map((tag, index) => {return (
                 <button  className="card_tag" key={index} onClick={() => handleOnClickTag(tag)}>
                     {tag}

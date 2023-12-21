@@ -55,7 +55,7 @@ function App() {
         
         {news && news.map((article) => {
           return (
-            <Card 
+           <Card 
                 key={article.objectID}
                 author={article.author} 
                 tags={article._tags}            

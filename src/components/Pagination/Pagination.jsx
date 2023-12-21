@@ -30,32 +30,32 @@ const Pagination = ({nbPages, query}) => {
   const handleChangeSelect = (e) => {
     const selectedPage = parseInt(e.target.value, 10);
 
-    setNewPage(selectedPage);
+    //setNewPage(selectedPage);
 
-    navigate(`/${query}/${selectedPage + 1}`)
+    navigate(`/${query || "search"}/${selectedPage + 1}`);
     //console.log('selectedPage', selectedPage)
     dispatch(newsDataAsync({ query: query, page: selectedPage }))
   }  
 
-  const handleNextPage = (currentPage) => {
-    setNewPage(currentPage);
+  // const handleNextPage = (currentPage) => {
+  //   setNewPage(currentPage);
 
-    navigate(`/${query}/${currentPage}`)
+  //   navigate(`/${query}/${currentPage}`)
     
-    dispatch(newsDataAsync({ query: query, page: currentPage }))
-  }
+  //   dispatch(newsDataAsync({ query: query, page: currentPage }))
+  // }
   
   //console.log ('previewPages',nbPages)
 
   // boucle sur le nombre de page pour afficher les items
-  const paginationItems = [];
-  for (let index = 0; index < nbPages && index < 7; index++) {
-    paginationItems.push(
-      <li key={index}>
-        <NavLink to={`/${query}/${index + 1}`} onClick={() => handleChangePage(index)}>{index + 1}</NavLink>
-      </li>
-    );
-  }
+  // const paginationItems = [];
+  // for (let index = 0; index < nbPages && index < 7; index++) {
+  //   paginationItems.push(
+  //     <li key={index}>
+  //       <NavLink to={`/${query}/${index + 1}`} onClick={() => handleChangePage(index)}>{index + 1}</NavLink>
+  //     </li>
+  //   );
+  // }
 
   const optionItems = [];
   for (let index = 0; index < nbPages ; index++) {
@@ -75,13 +75,13 @@ const Pagination = ({nbPages, query}) => {
         </li>}
     </ul> */}
 
-    {nbPages > 6 && 
+    
       <form action="" className='form_pagination'>
         <label htmlFor="pages">Allez directement à la page </label>
         <select name="pages" id="pages"  onChange={handleChangeSelect}>
           {optionItems}
         </select>
-      </form>}
+      </form>
   </>;
 };
 

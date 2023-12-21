@@ -2,8 +2,10 @@ import './Search.scss';
 import { newsDataAsync } from '../../store/slices/newsSlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const Search = () => {
+
+const Search = ({handleSearch}) => {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState('')
@@ -12,7 +14,12 @@ const Search = () => {
         e.preventDefault()
         const mySearch = e.target.elements.search.value
         console.log('mySearch', mySearch)
-        dispatch(newsDataAsync({query: mySearch, page: 0}))
+
+        //fonction pour passer la query à pagination
+        handleSearch(mySearch)
+        console.log('handleSearch', handleSearch)
+
+        dispatch(newsDataAsync({query: mySearch}))
         setInput("");
     }
 
@@ -30,4 +37,8 @@ const Search = () => {
     </>
 }
 
+Search.propTypes = {
+    handleSearch: PropTypes.func,
+  };
+  
 export default Search

@@ -4,66 +4,90 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { newsDataAsync } from '../../store/slices/newsSlice';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-const Pagination = ({nbPages}) => {
+const Pagination = ({nbPages, query}) => {
+
+  const navigate = useNavigate();
+
+  //console.log("query", query)
 
   const dispatch = useDispatch()
-  const [page, setPage] = useState(1);
+  const [newPage, setNewPage] = useState(1);
 
+  console.log("page", newPage)
+
+  
   const handleChangePage = (currentPage) => {
-    setPage(currentPage);
-    console.log('currentPage', currentPage)
+    setNewPage(currentPage);
+    console.log('currentPage Pagination', currentPage)
 
-    dispatch(newsDataAsync({ query: "", page: currentPage }))
+    navigate(`/${query}/${currentPage}`)
+
+    dispatch(newsDataAsync({ query: query, page: currentPage }))
   }
 
   const handleChangeSelect = (e) => {
     const selectedPage = parseInt(e.target.value, 10);
 
+    setNewPage(selectedPage);
+
+    navigate(`/${query}/${selectedPage + 1}`)
     //console.log('selectedPage', selectedPage)
-    dispatch(newsDataAsync({ query: "", page: selectedPage }))
+    dispatch(newsDataAsync({ query: query, page: selectedPage }))
   }  
+
+  const handleNextPage = (currentPage) => {
+    setNewPage(currentPage);
+
+    navigate(`/${query}/${currentPage}`)
+    
+    dispatch(newsDataAsync({ query: query, page: currentPage }))
+  }
   
   //console.log ('previewPages',nbPages)
 
   // boucle sur le nombre de page pour afficher les items
   const paginationItems = [];
-  for (let index = 0; index < nbPages && index < 6; index++) {
+  for (let index = 0; index < nbPages && index < 7; index++) {
     paginationItems.push(
       <li key={index}>
-        <button onClick={() => handleChangePage(index + 1)}>{index + 1}</button>
+        <NavLink to={`/${query}/${index + 1}`} onClick={() => handleChangePage(index)}>{index + 1}</NavLink>
       </li>
     );
   }
 
   const optionItems = [];
-  for (let index = 6; index <= nbPages ; index++) {
+  for (let index = 0; index < nbPages ; index++) {
     optionItems.push(
       <option key={index} value={index}>
-        page {index}
+        page {index + 1}
       </option>
     );
   }
 
   return <>
-    <ul className="pagination">
+    {/* <ul className="pagination">
       {paginationItems}
       {nbPages > 6 && 
+        <li>  
+          <NavLink to={`/${query}/${newPage + 1}`} onClick={() => handleNextPage(newPage)}>Page suivante</NavLink>
+        </li>}
+    </ul> */}
 
-        <form action="">
-          <label htmlFor="pages">Allez à la </label>
-          <select name="pages" id="pages"  onChange={handleChangeSelect}>
-            {optionItems}
-          </select>
-        </form>
-        
-      }
-    </ul>
+    {nbPages > 6 && 
+      <form action="" className='form_pagination'>
+        <label htmlFor="pages">Allez directement à la page </label>
+        <select name="pages" id="pages"  onChange={handleChangeSelect}>
+          {optionItems}
+        </select>
+      </form>}
   </>;
 };
 
 Pagination.propTypes = {
-  nbPages: PropTypes.number.isRequired
+  nbPages: PropTypes.number.isRequired,
+  query: PropTypes.string
 };
 
 export default Pagination;

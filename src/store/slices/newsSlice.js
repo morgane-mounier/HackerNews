@@ -6,7 +6,7 @@ export const newsDataAsync = createAsyncThunk(
   "data/news",
 
   // initier le paramètre query à vide de base
-  async ({ query = "", page = 0, tags = "" }) => {
+  async (query, page, tags) => {
     const data = await fetchDatas(query, page, tags);
     return data;
   }
@@ -17,6 +17,8 @@ export const newsData = createSlice({
   initialState: {
     status: "idle",
     news: null,
+    nbHits: null,
+    page: 0,
     nbPages: 0,
     error: null,
   },
@@ -29,7 +31,9 @@ export const newsData = createSlice({
       .addCase(newsDataAsync.fulfilled, (state, action) => {
         (state.status = "succeeded"),
           (state.news = action.payload.hits),
-          (state.nbPages = action.payload.nbPages);
+          (state.nbPages = action.payload.nbPages),
+          (state.page = action.payload.page),
+          (state.nbHits = action.payload.nbHits);
       })
       .addCase(newsDataAsync.rejected, (state, action) => {
         (state.status = "failed"), (state.error = action.payload);
